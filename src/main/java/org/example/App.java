@@ -1,0 +1,75 @@
+package org.example;
+
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) {
+        ApartamentDao dao = new ApartamentDao();
+        try (Scanner sc = new Scanner(System.in)) {
+            while (true) {
+                System.out.println("---------------------");
+                System.out.println("1: add flat");
+                System.out.println("2: view apartments");
+                System.out.println("3: filters by price ? between ?");
+                System.out.println("4: filters by min area");
+                System.out.println("---------------------");
+                String q = sc.nextLine();
+
+                switch (q) {
+                    case "1":
+                        System.out.println("Enter district: ");
+                        String district = sc.nextLine();
+
+                        System.out.println("Enter address: ");
+                        String address = sc.nextLine();
+
+                        System.out.println("Enter area: ");
+                        double area = sc.nextDouble();
+                        sc.nextLine();
+
+                        System.out.println("Enter rooms: ");
+                        int rooms = sc.nextInt();
+                        sc.nextLine();
+
+                        System.out.println("Enter price: ");
+                        double price = sc.nextDouble();
+                        sc.nextLine();
+
+                        Apartment app = new Apartment(district, address, area, rooms, price);
+                        dao.insert(app);
+                        System.out.println(app.toString());
+                        break;
+
+                    case "2":
+                        String result = dao.getAll().toString();
+                        System.out.println(result);
+                        break;
+
+                    case "3":
+                        System.out.print("Enter min price: ");
+                        double minPrice = sc.nextDouble();
+                        sc.nextLine();
+
+                        System.out.print("Enter max price: ");
+                        double maxPrice = sc.nextDouble();
+                        sc.nextLine();
+
+                        System.out.println(dao.getByPriceRange(minPrice, maxPrice).toString());
+                        break;
+
+                    case "4":
+                        System.out.print("Enter min area: ");
+                        double minArea = sc.nextDouble();
+                        sc.nextLine();
+
+                        System.out.println(dao.getByArea(minArea).toString());
+                        break;
+
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+}
