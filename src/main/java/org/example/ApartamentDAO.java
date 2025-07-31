@@ -4,8 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApartamentDao extends AbstractDAO implements ApartmentDAO{
-    @Override
+public class ApartamentDAO extends AbstractDAO{
     public void insert(Apartment apartment) {
         String sql = "INSERT INTO apartments (district, address, area, rooms, price) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = getConnection();
@@ -22,7 +21,6 @@ public class ApartamentDao extends AbstractDAO implements ApartmentDAO{
         }
     }
 
-    @Override
     public List<Apartment> getAll() {
         List<Apartment> result = new ArrayList<>();
         String sql = "SELECT * FROM apartments";
@@ -40,7 +38,6 @@ public class ApartamentDao extends AbstractDAO implements ApartmentDAO{
         return result;
     }
 
-    @Override
     public List<Apartment> getByPriceRange(double minPrice, double maxPrice) {
         List<Apartment> result = new ArrayList<>();
         String sql = "SELECT * FROM apartments WHERE price BETWEEN ? AND ? ";
@@ -62,7 +59,6 @@ public class ApartamentDao extends AbstractDAO implements ApartmentDAO{
     }
 
 
-    @Override
     public List<Apartment> getByArea(double area) {
         List<Apartment> result = new ArrayList<>();
         String sql = "SELECT * FROM apartments WHERE area >= ?";

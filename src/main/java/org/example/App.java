@@ -1,10 +1,11 @@
 package org.example;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        ApartamentDao dao = new ApartamentDao();
+        ApartamentDAO dao = new ApartamentDAO();
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
                 System.out.println("---------------------");
@@ -41,8 +42,9 @@ public class App {
                         break;
 
                     case "2":
-                        String result = dao.getAll().toString();
-                        System.out.println(result);
+                        for (Apartment ap : dao.getAll()) {
+                            System.out.println(ap.toString());
+                        }
                         break;
 
                     case "3":
@@ -54,7 +56,9 @@ public class App {
                         double maxPrice = sc.nextDouble();
                         sc.nextLine();
 
-                        System.out.println(dao.getByPriceRange(minPrice, maxPrice).toString());
+                        for (Apartment ap : dao.getByPriceRange(minPrice, maxPrice)) {
+                            System.out.println(ap.toString());
+                        }
                         break;
 
                     case "4":
@@ -62,7 +66,9 @@ public class App {
                         double minArea = sc.nextDouble();
                         sc.nextLine();
 
-                        System.out.println(dao.getByArea(minArea).toString());
+                        for (Apartment ap:  dao.getByArea(minArea)) {
+                            System.out.println(ap.toString());
+                        }
                         break;
 
                     default:
